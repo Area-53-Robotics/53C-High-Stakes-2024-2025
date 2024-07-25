@@ -1,27 +1,16 @@
 #include "main.h"
+#include "lemlib/api.hpp"
 
 /**
- * A callback function for LLEMU's center button.
+ * Runs initialization code. This occurs as soon as the program is started.
  *
- * When this callback is fired, it will toggle line 2 of the LCD text between
- * "I was pressed!" and nothing.
+ * All other competition modes are blocked by initialize; it is recommended
+ * to keep execution time for this mode under a few seconds.
  */
-void on_center_button() {
-	static bool pressed = false;
-	pressed = !pressed;
-	if (pressed) {
-		pros::lcd::set_text(2, "I was pressed!");
-	} else {
-		pros::lcd::clear_line(2);
-	}
-}
+void initialize() {
+	pros::lcd::initialize();
 
-/**
- * Runs while the robot is in the disabled state of Field Management System or
- * the VEX Competition Switch, following either autonomous or opcontrol. When
- * the robot is enabled, this task will exit.
- */
-void disabled() {}
+}
 
 /**
  * Runs after initialize(), and before autonomous when connected to the Field
@@ -34,3 +23,9 @@ void disabled() {}
  */
 void competition_initialize() {}
 
+/**
+ * Runs while the robot is in the disabled state of Field Management System or
+ * the VEX Competition Switch, following either autonomous or opcontrol. When
+ * the robot is enabled, this task will exit.
+ */
+void disabled() {}
