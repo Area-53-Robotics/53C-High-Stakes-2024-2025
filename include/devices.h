@@ -7,12 +7,12 @@ inline pros::Controller controller(pros::E_CONTROLLER_MASTER);
 
 /* * * Drivetrain * * */
 // Dead ports: 3, 6, 7, 12, 14, 20, 
-inline pros::MotorGroup leftMotors({-11, -12, -13}, pros::MotorGearset::blue);
+inline pros::MotorGroup leftMotors({-11, -13, -15}, pros::MotorGearset::blue);
 inline pros::MotorGroup rightMotors({1, 2, 4}, pros::MotorGearset::blue);
 
 inline lemlib::Drivetrain drivetrain(&leftMotors, // left motor group
                               &rightMotors, // right motor group
-                              11.5, // 10 inch track width
+                              11.5, // track width
                               lemlib::Omniwheel::NEW_325, // wheel size
                               450, // drivetrain rpm
                               2 // horizontal drift
@@ -52,14 +52,14 @@ inline lemlib::ControllerSettings angular_controller(2, // proportional gain (kP
 // input curve for throttle input during driver control
 inline lemlib::ExpoDriveCurve throttle_curve(3, // joystick deadband out of 127
                                      10, // minimum output where drivetrain will move out of 127
-                                     1.01 // expo curve gain
+                                     1.015 // expo curve gain
 );
 
 // only used for arcade
 // input curve for steer input during driver control
-inline lemlib::ExpoDriveCurve steer_curve(0, // joystick deadband out of 127
-                                  0, // minimum output where drivetrain will move out of 127
-                                  0 // expo curve gain
+inline lemlib::ExpoDriveCurve steer_curve(3, // joystick deadband out of 127
+                                  10, // minimum output where drivetrain will move out of 127
+                                  1.03     // expo curve gain
 );
 
 /* * * Chassis * * */
