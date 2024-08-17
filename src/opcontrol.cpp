@@ -20,26 +20,35 @@
 void opcontrol() {
 
     bool tank = true;
+    bool clampOn = HIGH;
+
 
 	while (true) {
+        /* * * Drive Control * * */
         int leftX = controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_X);
         int leftY = controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
         int rightX = controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
         int rightY = controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y);
         
+        // Toggle tank and arcade drive
+        
         if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_DOWN)) {
             tank = !tank;
         }
-
         if (tank == true) {
             chassis.tank(leftY, rightY);
-            controller.set_text(0, 0, "TANK");
+            controller.set_text(0, 0, "TANK  ");
             controller.rumble(".");
         }
         if (tank == false) {
             chassis.arcade(leftY, rightX);
             controller.set_text(0, 0, "ARCADE");
             controller.rumble("_");
+        }
+
+        /* * * Clamp * * */
+        if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)) {
+            clamp.toggle();
         }
 
         pros::delay(25);   

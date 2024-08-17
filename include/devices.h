@@ -1,9 +1,13 @@
 #include "lemlib/chassis/chassis.hpp"
 #include "main.h"
 #include "lemlib/api.hpp"
+#include "pros/adi.hpp"
 
 /* * * Controller * * */
 inline pros::Controller controller(pros::E_CONTROLLER_MASTER);
+
+/* * * Pneumatics * * */
+inline pros::adi::Pneumatics clamp('H', false);
 
 /* * * Drivetrain * * */
 // Dead ports: 3, 6, 7, 12, 14, 20, 
