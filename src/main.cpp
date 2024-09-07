@@ -1,6 +1,8 @@
 #include "main.h"
 #include "lemlib/api.hpp"
 
+#include "devices.h"
+
 /**
  * Runs initialization code. This occurs as soon as the program is started.
  *
@@ -8,8 +10,9 @@
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-	pros::lcd::initialize();
+  pros::lcd::initialize();
 
+  intakeMotor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 }
 
 /**
