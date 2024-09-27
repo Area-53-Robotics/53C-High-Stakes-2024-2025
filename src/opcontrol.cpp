@@ -4,8 +4,6 @@
 #include "devices.h"
 #include "pros/misc.h"
 
-#include "intake.h"
-
 /**
  * Runs the operator control code. This function will be started in its own task
  * with the default priority and stack size whenever the robot is enabled via
@@ -19,6 +17,7 @@
  * operator control task will be stopped. Re-enabling the robot will restart the
  * task, not resume it from where it left off.
  */
+
 void opcontrol() {
 
   bool tank = true;
@@ -32,11 +31,11 @@ void opcontrol() {
     int rightY = controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y);
 
     // Toggle tank and arcade drive
-    if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_LEFT)) {
+    if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_DOWN)) {
       tank = !tank;
     }
 
-    if (tank == true) {
+    if (tank == true) { 
       chassis.tank(leftY, rightY);
       controller.set_text(0, 0, "TANK  ");
       controller.rumble(".");
@@ -47,7 +46,7 @@ void opcontrol() {
     }
 
     /* * * Clamp * * */
-    if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R1)) {
+    if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)) {
       clamp.toggle();
     }
 
@@ -56,13 +55,13 @@ void opcontrol() {
     // Prints the intake angle to the brain
     pros::lcd::print(0, "Rotation Sensor: %d", rotationSensor.get_angle());
 
-    if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_UP)) {
-      intakeMotor.move(-50);
-    } else if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)) {
-      intakeMotor.move(50);
+    if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
+      intakeMotors.move(100);
+    } else if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
+      intakeMotors.move(-100);
     } else {
-      intakeMotor.brake();
-    }
+      intakeMotors.brake();
+    }   
 
     pros::delay(25);
   }

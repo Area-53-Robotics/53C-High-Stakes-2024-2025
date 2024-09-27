@@ -13,7 +13,7 @@ inline pros::adi::Pneumatics clamp('H', false);
 inline pros::Rotation rotationSensor(19);
 
 /* * * Motors * * */
-inline pros::Motor intakeMotor(17);
+inline pros::MotorGroup intakeMotors({16, -17});
 
 /* * * Drivetrain * * */
 // Dead ports: 3, 6, 7, 12, 14, 20,
