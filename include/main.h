@@ -75,6 +75,8 @@ void opcontrol(void);
  * You can add C++-only headers here
  */
 //#include <iostream>
+#include "lemlib/api.hpp"
+#include "devices.h"
 #endif
 
 #endif  // _PROS_MAIN_H_

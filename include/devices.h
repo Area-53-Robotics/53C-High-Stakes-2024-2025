@@ -1,6 +1,4 @@
-#include "lemlib/api.hpp"
 #include "lemlib/chassis/chassis.hpp"
-#include "main.h"
 #include "pros/adi.hpp"
 
 /* * * Controller * * */

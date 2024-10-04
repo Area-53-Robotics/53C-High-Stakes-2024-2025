@@ -1,7 +1,5 @@
-#include "lemlib/api.hpp"
 #include "main.h"
 
-#include "devices.h"
 #include "pros/misc.h"
 
 /**
