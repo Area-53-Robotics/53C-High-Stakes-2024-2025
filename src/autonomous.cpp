@@ -1,6 +1,6 @@
-#include "main.h"
-#include "lemlib/api.hpp"
 #include "devices.h"
+#include "lemlib/api.hpp"
+#include "main.h"
 
 /**
  * Runs the user autonomous code. This function will be started in its own task
@@ -14,5 +14,24 @@
  * from where it left off.
  */
 void autonomous() {
-    
+  /* Close Mobile Goal Auton: 1 Point */
+  
+  // Move to mobile goal
+  leftMotors.move(-71);
+  rightMotors.move(-75);
+  pros::delay(450);
+  leftMotors.brake();
+  rightMotors.brake();
+  // Clamp mobile goal
+  pros::delay(700);
+  clamp.extend();
+  pros::delay(600);
+  // Outtake ring
+  intakeMotors.move(130);
+  pros::delay(2000);
+  intakeMotors.brake();
+  // Release mobile goal
+  pros::delay(500);
+  clamp.retract();
 }
+
