@@ -1,5 +1,5 @@
 #include "main.h"
-#include "auton-selector.h"
+#include "auton_selector.h"
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
@@ -8,9 +8,7 @@
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-
-  lv_example_get_started_1();
-  /*
+  //set_brain_screen();
   pros::lcd::initialize();
 
   chassis.calibrate(); // calibrate sensors
@@ -25,7 +23,6 @@ void initialize() {
       pros::delay(1000);
     }
   });
-  */
 }
 
 /**

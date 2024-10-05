@@ -1,2 +1,0 @@
-
-void lv_example_get_started_1();
