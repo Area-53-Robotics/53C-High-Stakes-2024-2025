@@ -1,5 +1,6 @@
 #include "lemlib/api.hpp"
 #include "lemlib/chassis/chassis.hpp"
+#include "lemlib/chassis/trackingWheel.hpp"
 #include "main.h"
 #include "pros/adi.hpp"
 
@@ -7,10 +8,14 @@
 inline pros::Controller controller(pros::E_CONTROLLER_MASTER);
 
 /* * * Pneumatics * * */
-inline pros::adi::Pneumatics clamp('H', false);
+inline pros::adi::Pneumatics clamp('A', false);
 
 /* * * Sensors * * */
-inline pros::Rotation rotationSensor(19);
+inline pros::IMU imu(0);
+inline pros::Rotation verticalRotation(18);
+inline lemlib::TrackingWheel verticalTrackingWheel(&verticalRotation, lemlib::Omniwheel::NEW_275, 1);
+inline pros::Rotation horizontalRotation(19);
+inline lemlib::TrackingWheel horizontalTrackingWheel(&horizontalRotation, lemlib::Omniwheel::NEW_275, 1);
 
 /* * * Motors * * */
 inline pros::MotorGroup intakeMotors({16, -17});
@@ -29,11 +34,11 @@ inline lemlib::Drivetrain drivetrain(&leftMotors,  // left motor group
 );
 
 /* * * Sensors * * */
-inline lemlib::OdomSensors sensors(nullptr, // vertical tracking wheel 1
+inline lemlib::OdomSensors sensors(&verticalTrackingWheel, // vertical tracking wheel 1
                                    nullptr, // vertical tracking wheel 2
-                                   nullptr, // horizontal tracking wheel 1
+                                   &horizontalTrackingWheel, // horizontal tracking wheel 1
                                    nullptr, // horizontal tracking wheel 2
-                                   nullptr  // inertial sensor
+                                   &imu  // inertial sensor
 );
 
 /* * * Motion Controllers * * */
