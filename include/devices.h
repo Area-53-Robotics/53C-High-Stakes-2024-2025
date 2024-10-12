@@ -11,17 +11,27 @@ inline pros::Controller controller(pros::E_CONTROLLER_MASTER);
 inline pros::adi::Pneumatics clamp('A', false);
 
 /* * * Sensors * * */
-inline pros::IMU imu(0);
-inline pros::Rotation verticalRotation(18);
-inline lemlib::TrackingWheel verticalTrackingWheel(&verticalRotation, lemlib::Omniwheel::NEW_275, 1);
-inline pros::Rotation horizontalRotation(19);
-inline lemlib::TrackingWheel horizontalTrackingWheel(&horizontalRotation, lemlib::Omniwheel::NEW_275, 1);
+inline pros::IMU imu(5);
+inline pros::Rotation verticalRotation(-19);
+inline lemlib::TrackingWheel
+    verticalTrackingWheel(&verticalRotation, lemlib::Omniwheel::NEW_275, 1);
+inline pros::Rotation horizontalRotation(-17);
+inline lemlib::TrackingWheel
+    horizontalTrackingWheel(&horizontalRotation, lemlib::Omniwheel::NEW_275, 1);
 
 /* * * Motors * * */
 inline pros::MotorGroup intakeMotors({16, -17});
 
 /* * * Drivetrain * * */
-// Dead ports: 3, 6, 7, 12, 14, 20,
+// Dead ports: 3, 6, 7, 12, 14, 18, 20,
+inline pros::Motor frontLeftMotor(-11);
+inline pros::Motor middleLeftMotor(-13);
+inline pros::Motor backLeftMotor(-15);
+
+inline pros::Motor frontRightMotor(1);
+inline pros::Motor middleRightMotor(2);
+inline pros::Motor backRightMotor(4);
+
 inline pros::MotorGroup leftMotors({-11, -13, -15}, pros::MotorGearset::blue);
 inline pros::MotorGroup rightMotors({1, 2, 4}, pros::MotorGearset::blue);
 
@@ -34,12 +44,13 @@ inline lemlib::Drivetrain drivetrain(&leftMotors,  // left motor group
 );
 
 /* * * Sensors * * */
-inline lemlib::OdomSensors sensors(&verticalTrackingWheel, // vertical tracking wheel 1
-                                   nullptr, // vertical tracking wheel 2
-                                   &horizontalTrackingWheel, // horizontal tracking wheel 1
-                                   nullptr, // horizontal tracking wheel 2
-                                   &imu  // inertial sensor
-);
+inline lemlib::OdomSensors
+    sensors(&verticalTrackingWheel,   // vertical tracking wheel 1
+            nullptr,                  // vertical tracking wheel 2
+            &horizontalTrackingWheel, // horizontal tracking wheel 1
+            nullptr,                  // horizontal tracking wheel 2
+            &imu                      // inertial sensor
+    );
 
 /* * * Motion Controllers * * */
 inline lemlib::ControllerSettings
@@ -55,20 +66,20 @@ inline lemlib::ControllerSettings
     );
 
 inline lemlib::ControllerSettings
-    angular_controller(2,   // proportional gain (kP)
-                       0,   // integral gain (kI)
-                       10,  // derivative gain (kD)
-                       3,   // anti windup
-                       1,   // small error range, in degrees
-                       100, // small error range timeout, in milliseconds
-                       3,   // large error range, in degrees
-                       500, // large error range timeout, in milliseconds
-                       0    // maximum acceleration (slew)
+    angular_controller(2,  // proportional gain (kP) 2
+                       0,  // integral gain (kI)
+                       10, // derivative gain (kD) 10
+                       0,  // anti windup
+                       0,  // small error range, in degrees
+                       0,  // small error range timeout, in milliseconds
+                       0,  // large error range, in degrees
+                       0,  // large error range timeout, in milliseconds
+                       0   // maximum acceleration (slew)
     );
 /* * * Drive Curve * * */
 // input curve for throttle input during driver control
 inline lemlib::ExpoDriveCurve
-    throttle_curve(10,    // joystick deadband out of 127
+    throttle_curve(10,   // joystick deadband out of 127
                    10,   // minimum output where drivetrain will move out of 127
                    1.015 // expo curve gain
     );
@@ -76,7 +87,7 @@ inline lemlib::ExpoDriveCurve
 // only used for arcade
 // input curve for steer input during driver control
 inline lemlib::ExpoDriveCurve
-    steer_curve(10,   // joystick deadband out of 127
+    steer_curve(10,  // joystick deadband out of 127
                 10,  // minimum output where drivetrain will move out of 127
                 1.03 // expo curve gain
     );

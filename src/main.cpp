@@ -10,18 +10,17 @@
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-  pros::lcd::initialize();
-
-  chassis.calibrate(); // calibrate sensors
-                       // print position to brain screen
+  pros::lcd::initialize(); // initialize brain screen
+  chassis.calibrate();     // calibrate sensors
+  // print position to brain screen
   pros::Task screen_task([&]() {
     while (true) {
       // print robot location to the brain screen
-      printf("X: %f\n", chassis.getPose().x);         // x
-      printf("Y: %f\n", chassis.getPose().y);         // y
-      printf("Theta: %f\n", chassis.getPose().theta); // heading
+      pros::lcd::print(0, "X: %f", chassis.getPose().x);         // x
+      pros::lcd::print(1, "Y: %f", chassis.getPose().y);         // y
+      pros::lcd::print(2, "Theta: %f", chassis.getPose().theta); // heading
       // delay to save resources
-      pros::delay(1000);
+      pros::delay(20);
     }
   });
 }
