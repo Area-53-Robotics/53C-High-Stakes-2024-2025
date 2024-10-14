@@ -14,63 +14,86 @@
  * from where it left off.
  */
 void autonomous() {
-  /* AWP */
+  std::string auton = "awp";
 
-  chassis.setPose(0, 0, 0);
-  clamp.extend();
-  // Move to alliance stake and turn to it
-  chassis.moveToPoint(0, -14, 1000, {.forwards = false});
-  chassis.turnToHeading(90, 500);
-  chassis.moveToPoint(-3.5, -15, 500, {.forwards = false});
-  // Outtake preload onto alliance stake
-  intakeMotors.move(127);
-  pros::delay(1500);
-  intakeMotors.brake();
-  // Move away from wall
-  chassis.moveToPoint(0, -16, 500);
-  // Turn to mobile goal
-  chassis.turnToHeading(236.5, 1000);
-  clamp.retract();
-  // Move to mobile goal
-  chassis.moveToPoint(32, 2, 2000, {.forwards = false, .maxSpeed = 60});
-  chassis.waitUntilDone();
-  // Grab mobile goal
-  clamp.extend();
-  // Turn to individual ring stack
-  chassis.turnToHeading(362, 1000);
-  // Move to individual ring stack
-  chassis.moveToPoint(34, 25, 1000);
-  // Intake bottom ring
-  intakeMotors.move(127);
-  pros::delay(1000);
-  // Return to mobile goal position
-  chassis.moveToPoint(36, 5, 1000, {.forwards = false});
-  // Arc to 2x2 ring stack
-  chassis.moveToPose(51, 31, 370, 3000);
-  // Touch ladder
-  chassis.moveToPose(50, 13, 362, 3000, {.forwards = false});
-  chassis.waitUntilDone();
-  clamp.retract();
+  if (auton == "tracking") {
+    chassis.setPose(0, 0, 0);
+    clamp.retract();
+  } else if (auton == "awp_alliance") {
+    
+    /* AWP */
+    
+    chassis.setPose(0, 0, 0);
+    clamp.extend();
+    // Move to alliance stake and turn to it
+    chassis.moveToPoint(0, -14, 1000, {.forwards = false});
+    chassis.turnToHeading(90, 500);
+    chassis.moveToPoint(-3.5, -15, 500, {.forwards = false});
+    // Outtake preload onto alliance stake
+    intakeMotors.move(127);
+    pros::delay(1000);
+    intakeMotors.brake();
+    // Move away from wall
+    chassis.moveToPoint(0, -16, 500);
+    // Turn to mobile goal
+    chassis.turnToHeading(236.5, 1000);
+    clamp.retract();
+    // Move to mobile goal
+    chassis.moveToPoint(32, 2, 2000, {.forwards = false, .maxSpeed = 60});
+    chassis.waitUntilDone();
+    // Grab mobile goal
+    clamp.extend();
+    // Turn to individual ring stack
+    chassis.turnToHeading(362, 1000);
+    // Move to individual ring stack
+    chassis.moveToPoint(34, 25, 1000);
+    // Intake bottom ring
+    intakeMotors.move(127);
+    pros::delay(1500);
+    // Turn to 2x2 ring stack
+    chassis.turnToPoint(49, 25, 1000);
+    // Move to 2x2 ring stack
+    chassis.moveToPoint(49, 25, 3000, {.maxSpeed = 60});
+    pros::delay(1000);
+    // Touch ladder
+    chassis.turnToHeading(180, 1000);
+    chassis.moveToPoint(50, 8, 3000);
+    chassis.waitUntilDone();
+    clamp.retract();
+  } else if (auton == "awp") {
 
-  /* Close Mobile Goal Auton: 1 Point
-
-  // Move to mobile goal
-  leftMotors.move(-71);
-  rightMotors.move(-75);
-  pros::delay(450);
-  leftMotors.brake();
-  rightMotors.brake();
-  // Clamp mobile goal
-  pros::delay(700);
-  clamp.extend();
-  pros::delay(600);
-  // Outtake ring
-  intakeMotors.move(130);
-  pros::delay(2000);
-  intakeMotors.brake();
-  // Release mobile goal
-  pros::delay(500);
-  clamp.retract();
-
-  */
+    /* AWP without alliance stake */
+    
+    chassis.setPose(0, 0, 0);
+    // Move to mobile goal
+    chassis.moveToPose(29.5, 5, -120, 3000, {.forwards = false, .maxSpeed = 60});
+    chassis.waitUntilDone();
+    // Grab mobile goal
+    clamp.extend();
+    // Turn to individual ring stack
+    chassis.turnToHeading(362, 1000);
+    // Move to individual ring stack
+    chassis.moveToPoint(34, 25, 1000);
+    // Intake bottom ring
+    intakeMotors.move(127);
+    pros::delay(2000);
+    // Turn to 2x2 ring stack
+    chassis.turnToPoint(48, 25, 1000);
+    // Move to first bottom ring
+    chassis.moveToPoint(48, 25, 3000, {.maxSpeed = 50});
+    pros::delay(1500);
+    // Back away from first bottom ring
+    chassis.moveToPoint(38, 33, 1000, {.forwards = false});
+    // Turn to second bottom ring
+    chassis.turnToPoint(48, 38, 1000);
+    // Move to second bottom ring
+    chassis.moveToPoint(48, 38, 2000, {.maxSpeed = 50});
+    // Turn to ladder
+    chassis.turnToHeading(180, 1000);
+    // Touch ladder
+    chassis.moveToPoint(47, 8, 3000, {.maxSpeed = 60});
+    chassis.turnToHeading(150, 1000);
+    chassis.waitUntilDone();
+    clamp.retract();
+  }
 }

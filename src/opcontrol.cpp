@@ -23,6 +23,8 @@ void opcontrol() {
   bool clampOn = HIGH;
   int maxNelkin = 127;
 
+  // autonomous();
+
   clamp.extend();
 
   while (true) {
