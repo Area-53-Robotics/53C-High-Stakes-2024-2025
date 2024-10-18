@@ -20,7 +20,7 @@ inline lemlib::TrackingWheel
     horizontalTrackingWheel(&horizontalRotation, lemlib::Omniwheel::NEW_275, 1);
 
 /* * * Motors * * */
-inline pros::MotorGroup intakeMotors({16, -17});
+inline pros::MotorGroup intakeMotors({16, -8});
 
 /* * * Drivetrain * * */
 // Dead ports: 3, 6, 7, 12, 14, 18, 20,

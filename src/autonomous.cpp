@@ -13,16 +13,14 @@
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
-void autonomous() {
-  std::string auton = "awp";
 
-  if (auton == "tracking") {
+std::string auton = "awp_alliance";
+
+void autonomous() {
+  if (auton == "testing") {
     chassis.setPose(0, 0, 0);
     clamp.retract();
   } else if (auton == "awp_alliance") {
-    
-    /* AWP */
-    
     chassis.setPose(0, 0, 0);
     clamp.extend();
     // Move to alliance stake and turn to it
@@ -61,9 +59,6 @@ void autonomous() {
     chassis.waitUntilDone();
     clamp.retract();
   } else if (auton == "awp") {
-
-    /* AWP without alliance stake */
-    
     chassis.setPose(0, 0, 0);
     // Move to mobile goal
     chassis.moveToPose(29.5, 5, -120, 3000, {.forwards = false, .maxSpeed = 60});

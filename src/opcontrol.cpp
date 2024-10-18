@@ -23,12 +23,10 @@ void opcontrol() {
   bool clampOn = HIGH;
   int maxNelkin = 127;
 
-  // autonomous();
-
   clamp.extend();
 
   while (true) {
-    /* * * Drive Control * * */
+    /* * * Drivetrain * * */
     int leftX = controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_X);
     int leftY = controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
     int rightX = controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
@@ -63,30 +61,6 @@ void opcontrol() {
     } else {
       intakeMotors.brake();
     }
-
-    /*** Test ***/
-    /*
-
-    The purpose of this test is to identify problems with our intake and
-    determine the effectiveness of our ring scoring when clamping a mobile goal.
-
-    0 - *127*
-    1 - *100*
-    2 - *127* We made the wattage higher to make the rings move faster but the
-    rings were still stuck, even when it was only one wring. 
-    3 - *120* The intake spun faster leading to less grip at Row 3 as kinetic 
-    friction is less than stiatic friction. Our ring was unable to push the 
-    pressure hood up which is required to move forward. 
-    4 - *115* The intake surface is bending away from the ring, reducing the 
-    friction and making it get stuck again, even with lower power. Sometimes 
-    the rings get stuck diagonally on the barb. We are adding some spacers on 
-    the edge of the hood to push the rings down when the rubber bands pull it. 
-    5 - *115* We had inconsistent results; sometimes the rings would slide onto 
-    the mobile goal while others got stuck on the barb or in Row 3. We cut a 
-    curved chunk out of the intake ramp with the samelength as the radius of 
-    the ring. We believe the
-    */
-
     pros::delay(25);
   }
 }
