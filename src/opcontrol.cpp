@@ -22,11 +22,11 @@ void opcontrol() {
   bool tank = true;
   bool clampOn = HIGH;
   int maxNelkin = 127;
+  
+  autonomous();
 
   clamp.extend();
-
-  // autonomous();
-
+  
   while (true) {
     /* * * Drivetrain * * */
     int leftX = controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_X);

@@ -14,14 +14,13 @@
  * from where it left off.
  */
 
-std::string auton = "awp";
+std::string auton = "elim_ring_blue";
 
 void autonomous() {
+  chassis.setPose(0, 0, 0);
   if (auton == "testing") {
-    chassis.setPose(0, 0, 0);
     clamp.retract();
-  } else if (auton == "awp_alliance") {
-    chassis.setPose(0, 0, 0);
+  } else if (auton == "ring_red_alliance") {
     clamp.extend();
     // Move to alliance stake and turn to it
     chassis.moveToPoint(0, -14, 1000, {.forwards = false});
@@ -58,10 +57,10 @@ void autonomous() {
     chassis.moveToPoint(50, 8, 3000);
     chassis.waitUntilDone();
     clamp.retract();
-  } else if (auton == "awp") {
-    chassis.setPose(0, 0, 0);
+  } else if (auton == "qual_ring_red") {
     // Move to mobile goal
-    chassis.moveToPose(29.5, 5, -120, 3000, {.forwards = false, .maxSpeed = 60});
+    chassis.moveToPose(29.5, 5, -120, 3000,
+                       {.forwards = false, .maxSpeed = 60});
     chassis.waitUntilDone();
     // Grab mobile goal
     clamp.extend();
@@ -90,10 +89,115 @@ void autonomous() {
     chassis.turnToHeading(150, 1000);
     chassis.waitUntilDone();
     clamp.retract();
-  } else if (auton == "mogo_grab") {
+  } else if (auton == "elim_ring_red") {
+    // Move to mobile goal
+    chassis.moveToPose(29.5, 5, -120, 3000,
+                       {.forwards = false, .maxSpeed = 60});
+    chassis.waitUntilDone();
+    // Grab mobile goal
+    clamp.extend();
+    // Turn to individual ring stack
+    chassis.turnToHeading(362, 1000);
+    // Move to individual ring stack
+    chassis.moveToPoint(34, 25, 1000);
+    // Intake bottom ring
+    intakeMotors.move(127);
+    pros::delay(2000);
+    // Turn to 2x2 ring stack
+    chassis.turnToPoint(48, 25, 1000);
+    // Move to first bottom ring
+    chassis.moveToPoint(48, 25, 3000, {.maxSpeed = 50});
+    pros::delay(1500);
+    // Back away from first bottom ring
+    chassis.moveToPoint(38, 33, 1000, {.forwards = false});
+    // Turn to second bottom ring
+    chassis.turnToPoint(48, 38, 1000);
+    // Move to second bottom ring
+    chassis.moveToPoint(48, 38, 2000, {.maxSpeed = 50});
+    chassis.moveToPoint(46, 38, 1000, {.forwards = false});
+    // Turn to center
+    chassis.turnToHeading(180, 1000);
+    // Move to center
+    chassis.moveToPose(46, -2, 180, 3000);
+    chassis.waitUntilDone();
+    intakeMotors.brake();
+    clamp.retract();
+  } else if (auton == "qual_ring_blue") {
+    // Move to mobile goal
+    chassis.moveToPose(-26, 5, 138, 3000, {.forwards = false, .maxSpeed = 60});
+    chassis.waitUntilDone();
+    // Grab mobile goal
+    clamp.extend();
+    // Turn to individual ring stack
+    chassis.turnToHeading(-10, 1000);
+    // Move to individual ring stack
+    chassis.moveToPoint(-34, 26, 1000);
+    // Intake bottom ring
+    intakeMotors.move(127);
+    pros::delay(2000);
+    // Move to first bottom ring
+    chassis.moveToPose(-47, 27, -90, 3000, {.maxSpeed = 50});
+    pros::delay(1500);
+    // Move to second bottom ring
+    chassis.moveToPoint(-42, 27, 1000, {.forwards = false});
+    chassis.moveToPose(-48, 40, -90, 5000);
+    chassis.waitUntilDone();
+    intakeMotors.brake();
+    // Touch ladder
+    chassis.moveToPose(-46, 9, 16, 5000, {.forwards = false});
+    chassis.waitUntilDone();
+    // Let go of mogo
+    clamp.retract();
+    /*
+    // Back away from first bottom ring
+    chassis.turnToHeading(-120, 1000);
+    chassis.moveToPoint(-35, -30, 1000, {.forwards = false});
+    // Turn to second bottom ring
+    chassis.turnToHeading(-88, 1000);
+    // Move to second bottom ring
+    chassis.moveToPoint(-48, 33, 2000, {.maxSpeed = 50});
+    // Turn to ladder
+    chassis.turnToHeading(180, 1000);
+    // Touch ladder
+    chassis.moveToPoint(-47, 8, 3000, {.maxSpeed = 60});
+    chassis.turnToHeading(-150, 1000);
+    chassis.waitUntilDone();
+    clamp.retract();*/
+  } else if (auton == "elim_ring_blue") {
+    // Move to mobile goal
+    chassis.moveToPose(-26, 5, 138, 3000, {.forwards = false, .maxSpeed = 60});
+    chassis.waitUntilDone();
+    // Grab mobile goal
+    clamp.extend();
+    // Turn to individual ring stack
+    chassis.turnToHeading(-10, 1000);
+    // Move to individual ring stack
+    chassis.moveToPoint(-34, 26, 1000);
+    // Intake bottom ring
+    intakeMotors.move(127);
+    pros::delay(2000);
+    // Move to first bottom ring
+    chassis.moveToPose(-47, 27, -90, 3000, {.maxSpeed = 50});
+    pros::delay(1500);
+    // Move to second bottom ring
+    chassis.moveToPoint(-42, 27, 1000, {.forwards = false});
+    chassis.moveToPose(-48, 40, -90, 5000);
+    chassis.waitUntilDone();
+    intakeMotors.brake();
+    // Move away from rings
+    chassis.moveToPoint(-39, 35, 1000, {.forwards = false});
+    // Turn to center
+    chassis.turnToHeading(-182, 1000);
+    // Move to center
+    chassis.moveToPose(-43, 0, -138, 3000);
+    chassis.waitUntilDone();
+    clamp.retract();
+  } else if (auton == "mogo_red") {
     // Move to mogo
-    chassis.moveToPoint(2, -30, 1000, {.forwards = false});
-    chassis.moveToPose(12, -45.5, -12, 3000, {.forwards = false, .maxSpeed = 50});
+    chassis.turnToPoint(0, -30, 1000, {.forwards = false});
+    chassis.moveToPoint(0, -30, 2000, {.forwards = false});
+    chassis.moveToPose(12, -45.5, -12, 3000,
+                       {.forwards = false, .maxSpeed = 50});
     chassis.waitUntilDone();
     // Grab mogo
     clamp.extend();
@@ -109,18 +213,22 @@ void autonomous() {
     clamp.retract();
     pros::delay(500);
     // Move to other mogo
-    chassis.moveToPose(35, -33, -134, 2000, {.forwards = false, .maxSpeed = 50});
+    chassis.moveToPose(34, -33, -140, 3000,
+                       {.forwards = false, .maxSpeed = 50});
     // Grab other mogo
     chassis.waitUntilDone();
     clamp.extend();
     pros::delay(500);
     intakeMotors.move(127);
-    // Turn to rings
-    chassis.turnToHeading(75, 1000);
     // Move to rings
-    chassis.moveToPoint(22, -28, 1000);
-    pros::delay(500);
+    chassis.moveToPose(22, -28, -15, 3000);
+    pros::delay(1000);
+    intakeMotors.brake();
     // Move to ring stack
-    chassis.moveToPose(0.3, 8, -18, 2000);
+    chassis.moveToPose(0.5, 6, -42, 800, {.minSpeed = 100});
+    chassis.waitUntilDone();
+    intakeMotors.move(127);
+    pros::delay(950);
+    intakeMotors.brake();
   }
 }
