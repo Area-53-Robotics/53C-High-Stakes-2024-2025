@@ -14,7 +14,7 @@
  * from where it left off.
  */
 
-std::string auton = "awp_alliance";
+std::string auton = "awp";
 
 void autonomous() {
   if (auton == "testing") {
@@ -90,5 +90,37 @@ void autonomous() {
     chassis.turnToHeading(150, 1000);
     chassis.waitUntilDone();
     clamp.retract();
+  } else if (auton == "mogo_grab") {
+    // Move to mogo
+    chassis.moveToPoint(2, -30, 1000, {.forwards = false});
+    chassis.moveToPose(12, -45.5, -12, 3000, {.forwards = false, .maxSpeed = 50});
+    chassis.waitUntilDone();
+    // Grab mogo
+    clamp.extend();
+    pros::delay(500);
+    // Back up and score preload on mogo
+    chassis.moveToPoint(12, -43, 1000);
+    pros::delay(500);
+    intakeMotors.move(127);
+    pros::delay(1000);
+    intakeMotors.brake();
+    // Release mogo
+    pros::delay(500);
+    clamp.retract();
+    pros::delay(500);
+    // Move to other mogo
+    chassis.moveToPose(35, -33, -134, 2000, {.forwards = false, .maxSpeed = 50});
+    // Grab other mogo
+    chassis.waitUntilDone();
+    clamp.extend();
+    pros::delay(500);
+    intakeMotors.move(127);
+    // Turn to rings
+    chassis.turnToHeading(75, 1000);
+    // Move to rings
+    chassis.moveToPoint(22, -28, 1000);
+    pros::delay(500);
+    // Move to ring stack
+    chassis.moveToPose(0.3, 8, -18, 2000);
   }
 }

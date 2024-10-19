@@ -15,12 +15,12 @@ inline pros::IMU imu(5);
 inline pros::Rotation verticalRotation(-19);
 inline lemlib::TrackingWheel
     verticalTrackingWheel(&verticalRotation, lemlib::Omniwheel::NEW_275, 1);
-inline pros::Rotation horizontalRotation(-17);
+inline pros::Rotation horizontalRotation(-8);
 inline lemlib::TrackingWheel
     horizontalTrackingWheel(&horizontalRotation, lemlib::Omniwheel::NEW_275, 1);
 
 /* * * Motors * * */
-inline pros::MotorGroup intakeMotors({16, -8});
+inline pros::MotorGroup intakeMotors({16, -17});
 
 /* * * Drivetrain * * */
 // Dead ports: 3, 6, 7, 12, 14, 18, 20,
