@@ -23,7 +23,7 @@ void opcontrol() {
   bool clampOn = HIGH;
   int maxNelkin = 127;
   
-  autonomous();
+  // autonomous();
 
   clamp.extend();
   
@@ -62,6 +62,10 @@ void opcontrol() {
       intakeMotors.move(-115);
     } else {
       intakeMotors.brake();
+    }
+
+    if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_UP)) {
+      intake.toggle();
     }
     pros::delay(25);
   }

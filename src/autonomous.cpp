@@ -14,7 +14,7 @@
  * from where it left off.
  */
 
-std::string auton = "elim_ring_blue";
+std::string auton = "mogo_red";
 
 void autonomous() {
   chassis.setPose(0, 0, 0);
@@ -27,7 +27,7 @@ void autonomous() {
     chassis.turnToHeading(90, 500);
     chassis.moveToPoint(-3.5, -15, 500, {.forwards = false});
     // Outtake preload onto alliance stake
-    intakeMotors.move(127);
+    intakeMotors.move(-127);
     pros::delay(1000);
     intakeMotors.brake();
     // Move away from wall
@@ -40,6 +40,13 @@ void autonomous() {
     chassis.waitUntilDone();
     // Grab mobile goal
     clamp.extend();
+    // Get ring from corner stack
+    chassis.turnToHeading(-45, 1000);
+    chassis.moveToPose(0, 45.5, -45, 5000, {.minSpeed = 50});
+    chassis.waitUntilDone();
+    chassis.tank(50, 50);
+    intakeMotors.move(127);
+    /*
     // Turn to individual ring stack
     chassis.turnToHeading(362, 1000);
     // Move to individual ring stack
@@ -57,6 +64,7 @@ void autonomous() {
     chassis.moveToPoint(50, 8, 3000);
     chassis.waitUntilDone();
     clamp.retract();
+    */
   } else if (auton == "qual_ring_red") {
     // Move to mobile goal
     chassis.moveToPose(29.5, 5, -120, 3000,
@@ -194,6 +202,27 @@ void autonomous() {
     clamp.retract();
   } else if (auton == "mogo_red") {
     // Move to mogo
+    chassis.turnToHeading(90, 1000);
+    chassis.moveToPose(-25, 8, 90, 3000, {.forwards = false});
+    chassis.waitUntilDone();
+    pros::delay(1000);
+    // Clamp mogo
+    clamp.extend();
+    pros::delay(500);
+    // Score preload ring
+    intakeMotors.move(127);
+    pros::delay(500);
+    intakeMotors.brake();
+    // Move to ring stack
+    chassis.moveToPose(-34, 28, 10, 5000);
+    chassis.waitUntilDone();
+    // Intake and score ring
+    intakeMotors.move(127);
+    pros::delay(2000);
+    intakeMotors.brake();
+
+    /*
+    // Move to mogo
     chassis.turnToPoint(0, -30, 1000, {.forwards = false});
     chassis.moveToPoint(0, -30, 2000, {.forwards = false});
     chassis.moveToPose(12, -45.5, -12, 3000,
@@ -230,5 +259,8 @@ void autonomous() {
     intakeMotors.move(127);
     pros::delay(950);
     intakeMotors.brake();
+    */
+
+
   }
 }
