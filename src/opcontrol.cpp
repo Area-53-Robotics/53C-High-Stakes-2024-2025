@@ -20,13 +20,12 @@
 
 void opcontrol() {
   bool tank = true;
-  bool clampOn = HIGH;
   int maxNelkin = 127;
-  
+
   // autonomous();
 
   clamp.extend();
-  
+
   while (true) {
     /* * * Drivetrain * * */
     int leftX = controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_X);
@@ -57,11 +56,16 @@ void opcontrol() {
     /* * * Intake * * */
 
     if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
+      // Intake
       intakeMotors.move(115);
     } else if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
+      // Outtake
       intakeMotors.move(-115);
+      intake.extend();
     } else {
+      // Brake
       intakeMotors.brake();
+      intake.retract();
     }
 
     if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_UP)) {

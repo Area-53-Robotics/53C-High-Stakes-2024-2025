@@ -55,9 +55,9 @@ inline lemlib::OdomSensors
 
 /* * * Motion Controllers * * */
 inline lemlib::ControllerSettings
-    lateral_controller(10,  // proportional gain (kP)
+    lateral_controller(10,  // proportional gain (kP) 10
                        0,   // integral gain (kI)
-                       3,   // derivative gain (kD)
+                       3,   // derivative gain (kD) 3
                        3,   // anti windup
                        1,   // small error range, in inches
                        100, // small error range timeout, in milliseconds
