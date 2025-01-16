@@ -52,6 +52,11 @@ void opcontrol() {
     if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)) {
       clamp.toggle();
     }
+    
+    /* * * Doinker * * */
+    if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L2)) {
+      doinker.toggle();
+    }
 
     /* * * Intake * * */
 

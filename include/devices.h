@@ -10,6 +10,7 @@ inline pros::Controller controller(pros::E_CONTROLLER_MASTER);
 /* * * Pneumatics * * */
 inline pros::adi::Pneumatics clamp('A', false);
 inline pros::adi::Pneumatics intake('B', false);
+inline pros::adi::Pneumatics doinker('C', false);
 
 /* * * Sensors * * */
 inline pros::IMU imu(6);
