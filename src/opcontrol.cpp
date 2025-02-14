@@ -22,8 +22,6 @@ void opcontrol() {
   bool tank = true;
   int maxNelkin = 127;
 
-  // autonomous();
-
   clamp.extend();
 
   while (true) {
@@ -62,19 +60,19 @@ void opcontrol() {
 
     if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
       // Intake
-      intakeMotors.move(115);
+      intake.move(115);
     } else if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
       // Outtake
-      intakeMotors.move(-115);
-      intake.extend();
+      intake.move(-115);
+      intakeLift.extend();
     } else {
       // Brake
-      intakeMotors.brake();
-      intake.retract();
+      intake.brake();
+      intakeLift.retract();
     }
 
     if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_UP)) {
-      intake.toggle();
+      intakeLift.toggle();
     }
     pros::delay(25);
   }

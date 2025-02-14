@@ -1,6 +1,5 @@
 #include "main.h"
 #include "lemlib/api.hpp"
-
 #include "devices.h"
 
 /**
@@ -10,9 +9,15 @@
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
+  // Initialize
   pros::lcd::initialize();
   chassis.calibrate();
-  // Print robot coordiantes to the brain
+
+  // Lady Brown
+  ladyBrown.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+  pros::Task lady_brown(setState);
+
+  // Coordinates
   pros::Task screen_task([&]() {
     while (true) {
       pros::lcd::print(0, "X: %f", chassis.getPose().x);
