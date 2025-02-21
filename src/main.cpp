@@ -1,6 +1,5 @@
 #include "main.h"
 #include "lemlib/api.hpp"
-#include "devices.h"
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
@@ -15,7 +14,7 @@ void initialize() {
 
   // Lady Brown
   ladyBrown.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-  pros::Task lady_brown(setState);
+  pros::Task lady_brown(LadyBrownTask);
 
   // Coordinates
   pros::Task screen_task([&]() {

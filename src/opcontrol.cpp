@@ -1,8 +1,4 @@
-#include "lemlib/api.hpp"
 #include "main.h"
-
-#include "devices.h"
-#include "pros/misc.h"
 
 /**
  * Runs the operator control code. This function will be started in its own task
@@ -20,17 +16,16 @@
 
 void opcontrol() {
   bool tank = true;
-  int maxNelkin = 127;
 
   clamp.extend();
+  
 
   while (true) {
-    /* * * Drivetrain * * */
     int leftX = controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_X);
     int leftY = controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
     int rightX = controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
     int rightY = controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y);
-
+    
     // Toggle tank and arcade drive
     if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_DOWN)) {
       tank = !tank;
@@ -45,32 +40,48 @@ void opcontrol() {
       controller.set_text(0, 0, "ARCADE");
       controller.rumble("_");
     }
+    
+    if (
+      controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_B) &&
+      controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_DOWN) &&
+      controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_LEFT)
+    ) {
+      // Climb
+    }
 
-    /* * * Clamp * * */
-    if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)) {
+    if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)) { 
       clamp.toggle();
     }
     
-    /* * * Doinker * * */
     if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L2)) {
-      doinker.toggle();
+      if (ladyBrownPos == Start) {
+        ladyBrownPos = Load;
+      } else if (ladyBrownPos == Load) {
+        ladyBrownPos = RideUp;
+      } else if (ladyBrownPos == RideUp) {
+        ladyBrownPos = Score;
+      } else if (ladyBrownPos == Score) {
+        ladyBrownPos = Start;
+      }
     }
 
-    /* * * Intake * * */
-
+    if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)) {
+      doinker.toggle();
+    }
+    
     if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
       // Intake
-      intake.move(115);
+      intake.move(127);
     } else if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
       // Outtake
-      intake.move(-115);
-      intakeLift.extend();
+      intake.move(-127);
+      // intakeLift.extend();
     } else {
       // Brake
       intake.brake();
-      intakeLift.retract();
+      // intakeLift.retract();
     }
-
+    
     if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_UP)) {
       intakeLift.toggle();
     }

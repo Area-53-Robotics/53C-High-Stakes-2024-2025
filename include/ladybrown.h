@@ -2,8 +2,10 @@
 enum LadyBrownState {
   Start,
   Load,
+  RideUp,
   Score,
 };
 
-extern LadyBrownState state;
+extern LadyBrownState ladyBrownPos;
+
 void LadyBrownTask(void *param);

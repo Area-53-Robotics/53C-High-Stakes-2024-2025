@@ -1,6 +1,4 @@
 #include "lemlib/api.hpp"
-#include "main.h"
-#include "pros/adi.hpp"
 
 /* * * Controller * * */
 inline pros::Controller controller(pros::E_CONTROLLER_MASTER);
@@ -14,16 +12,16 @@ inline pros::adi::Pneumatics pto('D', false);
 /* * * Sensors * * */
 inline pros::IMU imu(17);
 inline pros::Rotation rotationSensor(4);
-inline pros::Rotation verticalRotation(-15);
+inline pros::Rotation verticalRotation(-16);
 inline lemlib::TrackingWheel
     verticalTrackingWheel(&verticalRotation, lemlib::Omniwheel::NEW_275, 1);
-inline pros::Rotation horizontalRotation(-16);
+inline pros::Rotation horizontalRotation(-15);
 inline lemlib::TrackingWheel
     horizontalTrackingWheel(&horizontalRotation, lemlib::Omniwheel::NEW_275, 1);
 
 /* * * Motors * * */
-inline pros::Motor intake(14);
-inline pros::MotorGroup ladyBrown({3, 10});
+inline pros::Motor intake(-14);
+inline pros::MotorGroup ladyBrown({-3, 10});
 
 /* * * Drivetrain * * */
 // Dead ports: 3, 6, 7, 12, 14, 18, 20,
@@ -35,8 +33,8 @@ inline pros::Motor frontRightMotor(11);
 inline pros::Motor middleRightMotor(12);
 inline pros::Motor backRightMotor(13);
 
-inline pros::MotorGroup leftMotors({-1, -2, -3}, pros::MotorGearset::blue);
-inline pros::MotorGroup rightMotors({8, 9, 10}, pros::MotorGearset::blue);
+inline pros::MotorGroup leftMotors({-18, -19, -20}, pros::MotorGearset::blue);
+inline pros::MotorGroup rightMotors({11, 12, 13}, pros::MotorGearset::blue);
 
 inline lemlib::Drivetrain drivetrain(&leftMotors,  // left motor group
                                      &rightMotors, // right motor group
