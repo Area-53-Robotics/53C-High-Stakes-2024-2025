@@ -16,8 +16,8 @@ void LadyBrownTask(void *param) {
   float kP = 1.6;
   float power;
 
-
   while (true) {
+    // Set initial position
     switch (ladyBrownPos) {
       case Start:
         targetAngle = startPos;
@@ -32,13 +32,14 @@ void LadyBrownTask(void *param) {
         targetAngle = scorePos;
         break;
     }
-
+    
     currentAngle = rotationSensor.get_angle() / 100.00;
 
     error = targetAngle - currentAngle;
     power = error * kP;
     
     while (std::abs(error) > 0.5) {
+      // Set continuous position
       switch (ladyBrownPos) {
         case Start:
           targetAngle = startPos;
@@ -60,11 +61,10 @@ void LadyBrownTask(void *param) {
       power = error * kP;
 
       ladyBrown.move(power);
-      
       pros::Task::delay(20);
     }
+    
     ladyBrown.brake();
-
     pros::Task::delay(20);
   }
 }

@@ -5,9 +5,9 @@ inline pros::Controller controller(pros::E_CONTROLLER_MASTER);
 
 /* * * Pneumatics * * */
 inline pros::adi::Pneumatics clamp('A', false);
-inline pros::adi::Pneumatics intakeLift('B', false);
+inline pros::adi::Pneumatics pto('B', false);
 inline pros::adi::Pneumatics doinker('C', false);
-inline pros::adi::Pneumatics pto('D', false);
+inline pros::adi::Pneumatics intakeLift('D', false);
 
 /* * * Sensors * * */
 inline pros::IMU imu(17);
@@ -24,7 +24,6 @@ inline pros::Motor intake(-14);
 inline pros::MotorGroup ladyBrown({-3, 10});
 
 /* * * Drivetrain * * */
-// Dead ports: 3, 6, 7, 12, 14, 18, 20,
 inline pros::Motor frontLeftMotor(-18);
 inline pros::Motor middleLeftMotor(-19);
 inline pros::Motor backLeftMotor(-20);
@@ -46,7 +45,7 @@ inline lemlib::Drivetrain drivetrain(&leftMotors,  // left motor group
 
 /* * * Sensors * * */
 inline lemlib::OdomSensors
-    sensors(&verticalTrackingWheel,   // vertical tracking wheel 1
+    sensors(nullptr,   // vertical tracking wheel 1
             nullptr,                  // vertical tracking wheel 2
             &horizontalTrackingWheel, // horizontal tracking wheel 1
             nullptr,                  // horizontal tracking wheel 2
@@ -58,7 +57,7 @@ inline lemlib::ControllerSettings
     lateral_controller(10,  // proportional gain (kP) 10
                        0,   // integral gain (kI)
                        3,   // derivative gain (kD) 3
-                       3,   // anti windup
+                       3,  // anti windup
                        1,   // small error range, in inches
                        100, // small error range timeout, in milliseconds
                        3,   // large error range, in inches
@@ -70,11 +69,11 @@ inline lemlib::ControllerSettings
     angular_controller(2,  // proportional gain (kP) 2
                        0,  // integral gain (kI)
                        10, // derivative gain (kD) 10
-                       0,  // anti windup
-                       0,  // small error range, in degrees
-                       0,  // small error range timeout, in milliseconds
-                       0,  // large error range, in degrees
-                       0,  // large error range timeout, in milliseconds
+                       3,  // anti windup
+                       1,  // small error range, in degrees
+                       100,  // small error range timeout, in milliseconds
+                       3,  // large error range, in degrees
+                       500,  // large error range timeout, in milliseconds
                        0   // maximum acceleration (slew)
     );
 /* * * Drive Curve * * */

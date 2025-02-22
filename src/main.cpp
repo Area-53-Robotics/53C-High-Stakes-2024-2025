@@ -2,6 +2,15 @@
 #include "lemlib/api.hpp"
 
 /**
+ * Updates the coordinates of the robot and prints to the controller screen.
+ */
+void updateCoordinates() {
+  controller.print(0, 0, "X: %f", std::round(chassis.getPose().x * 100) / 100);
+  controller.print(0, 1, "Y: %f", std::round(chassis.getPose().y * 100) / 100);
+  controller.print(0, 2, "Theta: %f", std::round(chassis.getPose().theta * 100) / 100);
+}
+
+/**
  * Runs initialization code. This occurs as soon as the program is started.
  *
  * All other competition modes are blocked by initialize; it is recommended
@@ -19,6 +28,7 @@ void initialize() {
   // Coordinates
   pros::Task screen_task([&]() {
     while (true) {
+      // updateCoordinates();
       pros::lcd::print(0, "X: %f", chassis.getPose().x);
       pros::lcd::print(1, "Y: %f", chassis.getPose().y);
       pros::lcd::print(2, "Theta: %f", chassis.getPose().theta);

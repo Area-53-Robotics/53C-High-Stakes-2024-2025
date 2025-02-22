@@ -1,4 +1,4 @@
-#include "devices.h"
+#include "main.h"
 
 /** RING (AWP)
  * Scores preload on mobile goal
@@ -498,10 +498,17 @@ void skills() {
   // Move away from corner
   chassis.moveToPoint(58, 13, 1000);
 }
-void nothing() {}
+void nothing() {
+  chassis.moveToPoint(0, 48, 3000);
+  chassis.waitUntil(24);
+  chassis.cancelMotion();
+  chassis.moveToPoint(0, 48, 3000, {.maxSpeed = 80});
+
+
+}
 
 // sameer is gay
-std::string auton = "red_mogo_ally";
+std::string auton = "nothing";
 
 void autonomous() {
   chassis.setPose(0, 0, 0);

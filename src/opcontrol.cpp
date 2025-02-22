@@ -17,8 +17,7 @@
 void opcontrol() {
   bool tank = true;
 
-  clamp.extend();
-  
+  // clamp.extend();
 
   while (true) {
     int leftX = controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_X);
@@ -33,11 +32,11 @@ void opcontrol() {
 
     if (tank == true) {
       chassis.tank(leftY, rightY);
-      controller.set_text(0, 0, "TANK  ");
+      controller.set_text(1, 0, "TANK  ");
       controller.rumble(".");
     } else if (tank == false) {
       chassis.arcade(leftY, rightX);
-      controller.set_text(0, 0, "ARCADE");
+      controller.set_text(1, 0, "ARCADE");
       controller.rumble("_");
     }
     
