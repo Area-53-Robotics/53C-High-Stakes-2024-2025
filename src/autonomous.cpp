@@ -381,45 +381,37 @@ void blue_mogo_ally() {
   // Move to ladder
   chassis.moveToPose(49, 8, 323.9, 5000, {.forwards = false, .maxSpeed = 60});
 }
-// UNFINISHED
+
 void blue_mogo_rush() {
-  // Start moving to mobile goal
-  chassis.moveToPoint(0, -32, 3000, {.forwards = false});
-  chassis.moveToPoint(-6, -40, 3000, {.forwards = false});
-  chassis.moveToPoint(-8.7, -44.6, 3000, {.forwards = false, .maxSpeed = 30});
-  // In between point where it turns to and moves to mobile goal
-  chassis.waitUntilDone();
+  // Raise lady brown slightly, move to rings
+  ladyBrownPos = Auton;
+  chassis.moveToPose(0, 39, 0, 5000);
+  // Start intake
+  pros::delay(250);
   intake.move(127);
-  // Clamp mogo
-  clamp.extend();
-  /*
-  // Move to ring (1/2)
-  chassis.moveToPoint(-12, -2, 1000);
-  chassis.waitUntil(6);
-  // Drop mogo
-  clamp.retract();
-  // Move to ring (2/2)
-  chassis.waitUntil(15);
-  chassis.cancelMotion();
-  chassis.moveToPoint(-12, -2, 5000, {.maxSpeed = 20}); //-17, -35, 104
-  // Intake ring
-  chassis.waitUntilDone();
+  //
+  doinker.toggle();
+  // Stop intake
+  chassis.waitUntil(35);
   intake.brake();
-  // Move to 2nd mogo
-  chassis.moveToPose(-33, -25, 50, 2000, {.forwards = false});
+  // Grab mogo
   chassis.waitUntilDone();
-  intake.move(127);
-  // Clamp 2nd mogo
-  clamp.extend();
+  doinker.toggle();
+  pros::delay(250);
+  // Retreat
+  chassis.moveToPose(0, 30, 0, 5000, {.forwards = false});
   pros::delay(500);
-  chassis.moveToPoint(-41, -31, 100, {.maxSpeed = 80});
-  // Move to other ring
-  chassis.moveToPose(-17, -35, 104, 5000);
+  // Release mogo
+  doinker.toggle();
+  // Move to wall stake
+  chassis.moveToPose(-18, 45, -56, 5000);
+  pros::delay(250);
+  doinker.toggle();
+  // Score on wall stake
   chassis.waitUntilDone();
-  pros::delay(500);
-  intake.brake();
-  chassis.moveToPose(-41, -42, 77, 1000, {.forwards = false});
-  */
+  ladyBrownPos = Score;
+  pros::delay(1000);
+  ladyBrownPos = Start;
 }
 
 /** SKILLS
@@ -506,11 +498,11 @@ void skills() {
   chassis.moveToPoint(58, 13, 1000);
 }
 void nothing() {
-  setLadyBrown(Start);
+
 }
 
 // sameer is gay
-std::string auton = "nothing";
+std::string auton = "blue_mogo_rush";
 
 void autonomous() {
   chassis.setPose(0, 0, 0);

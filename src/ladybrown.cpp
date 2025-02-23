@@ -12,7 +12,8 @@ void LadyBrownTask(void *param) {
   float loadPos = 205.09;
   float rideUpPos = 94;
   float scorePos = 87;
-
+  
+  float autonPos = 180;
   float testPos = 120;
 
   float currentAngle;
@@ -36,6 +37,9 @@ void LadyBrownTask(void *param) {
         break;
       case Score:
         targetAngle = scorePos;
+        break;
+      case Auton:
+        targetAngle = autonPos;
         break;
       case Test:
         targetAngle = testPos;
@@ -61,6 +65,9 @@ void LadyBrownTask(void *param) {
           break;
         case Score:
           targetAngle = scorePos;
+          break;
+        case Auton:
+          targetAngle = autonPos;
           break;
         case Test:
           targetAngle = testPos;

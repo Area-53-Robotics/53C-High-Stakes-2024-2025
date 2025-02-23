@@ -4,7 +4,8 @@ enum LadyBrownState {
   Load,
   RideUp,
   Score,
-
+  
+  Auton,
   Test,
 };
 
