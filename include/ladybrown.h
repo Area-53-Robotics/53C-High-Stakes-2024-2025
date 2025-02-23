@@ -1,14 +1,17 @@
+class LadyBrown {
+  enum LadyBrownState {
+    Start,
+    Load,
+    RideUp,
+    Score,
+    Test,
+  };
 
-enum LadyBrownState {
-  Start,
-  Load,
-  RideUp,
-  Score,
+public:
+  LadyBrownState ladyBrownPos;
 
-  Test,
+  LadyBrown();
+
+  void setLadyBrown(LadyBrownState state);
+  static void LadyBrownTask(void *param);
 };
-
-extern LadyBrownState ladyBrownPos;
-
-void setLadyBrown(LadyBrownState state);
-void LadyBrownTask(void *param);

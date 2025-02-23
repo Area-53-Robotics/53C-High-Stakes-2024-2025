@@ -1,10 +1,9 @@
 #include "ladybrown.h"
 #include "devices.h"
 
-LadyBrownState ladyBrownPos = Start;
 
-void setLadyBrown(LadyBrownState state) {
-  ladyBrownPos = state;
+LadyBrown::LadyBrown() {
+  ladyBrownPos = Start;
 }
 
 void LadyBrownTask(void *param) {
