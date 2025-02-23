@@ -1,5 +1,12 @@
 #include "main.h"
 
+void quickMove(float x, float y, int timeout, int wait) {
+  chassis.moveToPoint(x, y, timeout);
+  chassis.waitUntil(wait);
+  chassis.cancelMotion();
+  chassis.moveToPoint(x, y, timeout, {.maxSpeed = 100});
+}
+
 /** RING (AWP)
  * Scores preload on mobile goal
  * Intakes 1x1 stack
@@ -499,12 +506,7 @@ void skills() {
   chassis.moveToPoint(58, 13, 1000);
 }
 void nothing() {
-  chassis.moveToPoint(0, 48, 3000);
-  chassis.waitUntil(24);
-  chassis.cancelMotion();
-  chassis.moveToPoint(0, 48, 3000, {.maxSpeed = 80});
-
-
+  setLadyBrown(Start);
 }
 
 // sameer is gay

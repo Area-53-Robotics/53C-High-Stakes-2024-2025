@@ -1,4 +1,5 @@
 #include "main.h"
+#include "pros/misc.h"
 
 /**
  * Runs the operator control code. This function will be started in its own task
@@ -54,13 +55,20 @@ void opcontrol() {
     
     if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L2)) {
       if (ladyBrownPos == Start) {
-        ladyBrownPos = Load;
+        setLadyBrown(Load);
       } else if (ladyBrownPos == Load) {
-        ladyBrownPos = RideUp;
+        setLadyBrown(RideUp);
       } else if (ladyBrownPos == RideUp) {
-        ladyBrownPos = Score;
+        setLadyBrown(Score);
       } else if (ladyBrownPos == Score) {
-        ladyBrownPos = Start;
+        setLadyBrown(Start);
+      }
+    }
+    if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_RIGHT)) {
+      if (ladyBrownPos != Test) {
+        setLadyBrown(Test);
+      } else if (ladyBrownPos == Test) {
+        setLadyBrown(Start);
       }
     }
 

@@ -3,11 +3,17 @@
 
 LadyBrownState ladyBrownPos = Start;
 
+void setLadyBrown(LadyBrownState state) {
+  ladyBrownPos = state;
+}
+
 void LadyBrownTask(void *param) {
   float startPos = 217.26;
   float loadPos = 205.09;
   float rideUpPos = 94;
   float scorePos = 87;
+
+  float testPos = 120;
 
   float currentAngle;
   float targetAngle;
@@ -31,6 +37,9 @@ void LadyBrownTask(void *param) {
       case Score:
         targetAngle = scorePos;
         break;
+      case Test:
+        targetAngle = testPos;
+        break;
     }
     
     currentAngle = rotationSensor.get_angle() / 100.00;
@@ -52,6 +61,9 @@ void LadyBrownTask(void *param) {
           break;
         case Score:
           targetAngle = scorePos;
+          break;
+        case Test:
+          targetAngle = testPos;
           break;
       }
       
