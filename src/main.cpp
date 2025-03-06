@@ -32,6 +32,7 @@ void initialize() {
       pros::lcd::print(0, "X: %f", chassis.getPose().x);
       pros::lcd::print(1, "Y: %f", chassis.getPose().y);
       pros::lcd::print(2, "Theta: %f", chassis.getPose().theta);
+      
       pros::delay(20);
     }
   });

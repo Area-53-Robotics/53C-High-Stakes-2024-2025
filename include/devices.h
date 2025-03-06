@@ -45,9 +45,9 @@ inline lemlib::Drivetrain drivetrain(&leftMotors,  // left motor group
 
 /* * * Sensors * * */
 inline lemlib::OdomSensors
-    sensors(&verticalTrackingWheel,   // vertical tracking wheel 1
+    sensors(nullptr,   // vertical tracking wheel 1
             nullptr,                  // vertical tracking wheel 2
-            &horizontalTrackingWheel, // horizontal tracking wheel 1
+            nullptr, // horizontal tracking wheel 1
             nullptr,                  // horizontal tracking wheel 2
             &imu                      // inertial sensor
     );
